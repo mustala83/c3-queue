@@ -4,6 +4,7 @@ priority_rules:
       - "title~=^hotfix"
     priority: high
 
+    allow_checks_interruption: true
 queue_rules:
   - name: default
     batch_size: 1
