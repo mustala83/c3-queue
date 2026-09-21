@@ -1,3 +1,9 @@
+priority_rules:
+  - name: hotfixes go first
+    conditions:
+      - "title~=^hotfix"
+    priority: high
+
 queue_rules:
   - name: default
     batch_size: 1
@@ -5,12 +11,7 @@ queue_rules:
       - base=main
     merge_conditions:
       - check-success=required-ci
-      - label=ship-it          # a maintainer-only gate: outside contributors cannot add labels
-    priority_rules:
-      - name: hotfixes go first
-        conditions:
-          - "title~=^hotfix"
-        priority: high
+      - label=ship-it
 
 pull_request_rules:
   - name: queue
