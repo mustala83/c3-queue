@@ -1,11 +1,16 @@
 queue_rules:
   - name: default
-    batch_size: 2
-    batch_max_wait_time: 60 s
+    batch_size: 1
     queue_conditions:
       - base=main
     merge_conditions:
       - check-success=required-ci
+      - label=ship-it          # a maintainer-only gate: outside contributors cannot add labels
+    priority_rules:
+      - name: hotfixes go first
+        conditions:
+          - "title~=^hotfix"
+        priority: high
 
 pull_request_rules:
   - name: queue
