@@ -1,3 +1,20 @@
-# C3 fixture quiesced: no rules, no queue. Evidence (check runs, Actions runs, Mergify comments)
-# stays verifiable; nothing new will be queued, built or merged.
-pull_request_rules: []
+# C3 EVIDENCE FIXTURE - INERT.
+# `queue_conditions` requires a label that only the repository owner can add and never will,
+# so no pull request is ever queued, no queue branch is created and nothing executes.
+# The rule exists solely so the `Summary` check run keeps rendering the built-in
+# `depends-on` protection, which is the evidence for
+# findings/C3-depends-on-private-repo-merge-state-oracle.md
+queue_rules:
+  - name: default
+    queue_conditions:
+      - label=c3-never-queue
+    merge_conditions:
+      - label=c3-never-merge
+
+pull_request_rules:
+  - name: c3 evidence (inert - nothing can satisfy queue_conditions)
+    conditions:
+      - base=main
+    actions:
+      queue:
+        name: default
